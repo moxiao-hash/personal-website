@@ -1,7 +1,10 @@
 export const profile = {
   handle: 'moxiao6657',
+  identity: '学生 · 正在学习 Vibe Coding 的人',
   github: 'https://github.com/moxiao-hash',
+  githubLabel: 'GitHub',
   email: '166973742@qq.com',
+  emailLabel: '发送邮件',
 };
 
 export const projects = [
