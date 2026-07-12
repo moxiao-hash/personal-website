@@ -6,6 +6,7 @@ const indexPath = new URL('../index.html', import.meta.url);
 const stylesheetPath = new URL('../assets/styles.css', import.meta.url);
 const mainPath = new URL('../src/main.js', import.meta.url);
 const pointerGlowPath = new URL('../src/ui/pointer-glow.js', import.meta.url);
+const readmePath = new URL('../README.md', import.meta.url);
 
 async function readHomepage() {
   return readFile(indexPath, 'utf8');
@@ -105,4 +106,26 @@ test('pointer glow updates are guarded by a fine-pointer media query', async () 
   assert.match(pointerGlow, /addEventListener\(["']pointermove["']/);
   assert.match(pointerGlow, /--pointer-x/);
   assert.match(pointerGlow, /--pointer-y/);
+});
+
+test('README explains content updates and portable deployment', async () => {
+  const readme = await readFile(readmePath, 'utf8');
+
+  assert.match(readme, /npm test/);
+  assert.match(readme, /src\/data\/site-data\.js/);
+  for (const field of ['name', 'description', 'tags', 'url']) {
+    assert.match(readme, new RegExp(`\\b${field}\\b`));
+  }
+  assert.match(readme, /HTTP\(S\)|HTTPS?/i);
+  assert.match(readme, /即将上线/);
+  assert.match(readme, /静态托管/);
+  assert.match(readme, /无需构建|没有构建步骤/);
+  for (const path of ['index.html', 'assets/', 'src/']) {
+    assert.ok(readme.includes(path), `expected deployment path: ${path}`);
+  }
+  assert.match(readme, /Nginx/);
+  assert.match(readme, /Caddy/);
+  assert.match(readme, /主机名|域名/);
+  assert.match(readme, /HTTPS/);
+  assert.match(readme, /子域名/);
 });
