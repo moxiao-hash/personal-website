@@ -5,6 +5,7 @@ import { readFile } from 'node:fs/promises';
 const indexPath = new URL('../index.html', import.meta.url);
 const stylesheetPath = new URL('../assets/styles.css', import.meta.url);
 const mainPath = new URL('../src/main.js', import.meta.url);
+const pointerGlowPath = new URL('../src/ui/pointer-glow.js', import.meta.url);
 
 async function readHomepage() {
   return readFile(indexPath, 'utf8');
@@ -76,6 +77,7 @@ test('homepage loads the visual stylesheet and marks content for progressive rev
 test('visual system includes accessible motion, focus, and pointer fallbacks', async () => {
   const css = await readFile(stylesheetPath, 'utf8');
 
+  assert.match(css, /--accent\s*:\s*#0563b8\s*;/i, 'small accent text uses the reviewed AA contrast token');
   assert.match(css, /@media\s*\([^)]*prefers-reduced-motion\s*:\s*reduce[^)]*\)/i);
   assert.match(css, /:focus-visible\s*\{[^}]*outline\s*:/is);
   assert.match(css, /@media\s*\([^)]*(?:pointer|hover)\s*:\s*(?:coarse|none)[^)]*\)/i);
@@ -96,9 +98,11 @@ test('content grids stay single-column until an explicit wider breakpoint', asyn
 
 test('pointer glow updates are guarded by a fine-pointer media query', async () => {
   const main = await readFile(mainPath, 'utf8');
+  const pointerGlow = await readFile(pointerGlowPath, 'utf8');
 
-  assert.match(main, /matchMedia\(["']\(pointer:\s*fine\)["']\)/);
-  assert.match(main, /addEventListener\(["']pointermove["']/);
-  assert.match(main, /--pointer-x/);
-  assert.match(main, /--pointer-y/);
+  assert.match(main, /initializePointerGlow\(\)/);
+  assert.match(pointerGlow, /matchMedia\(["']\(pointer:\s*fine\)["']\)/);
+  assert.match(pointerGlow, /addEventListener\(["']pointermove["']/);
+  assert.match(pointerGlow, /--pointer-x/);
+  assert.match(pointerGlow, /--pointer-y/);
 });
