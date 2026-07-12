@@ -10,9 +10,9 @@
 
 | Resource | Status | Bytes |
 | --- | ---: | ---: |
-| `/` (`index.html`) | 200 | 2,943 |
+| `/` (`index.html`) | 200 | 3,078 |
 | `/assets/styles.css` | 200 | 4,886 |
-| `/src/main.js` | 200 | 425 |
+| `/src/main.js` | 200 | 516 |
 
 The repository contains no image, video, WebGL, canvas, WASM, or other heavy binary assets. The release uses HTML, CSS gradients, and small JavaScript modules only.
 
@@ -36,7 +36,7 @@ All three viewports rendered the `moxiao6657` hero, followed by `about`, `learni
 
 ## Automated verification and cleanup
 
-- `npm test`: 24 tests passed, 0 failed.
+- `npm test`: 26 tests passed, 0 failed.
 - `git diff --check`: passed.
 - Browser QA found no production defect, so no behavior change was required.
 - The QA-created browser tab was closed and the loopback server was stopped after verification.
