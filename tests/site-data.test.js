@@ -2,7 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { profile, projects } from '../src/data/site-data.js';
-import { getProjectState } from '../src/ui/projects.js';
+import {
+  createProjectCardMarkup,
+  getProjectState,
+} from '../src/ui/projects.js';
 
 test('profile exposes the personal site identity and contact links', () => {
   assert.equal(profile.handle, 'moxiao6657');
@@ -41,4 +44,63 @@ test('unavailable or unsafe project URLs are coming soon', () => {
   for (const url of unavailableUrls) {
     assert.equal(getProjectState(url), 'coming-soon');
   }
+});
+
+test('a URL-less project renders a non-clickable coming-soon card', () => {
+  const markup = createProjectCardMarkup({
+    name: '未来作品',
+    description: '仍在构思中。',
+    tags: ['实验'],
+    url: '',
+  });
+
+  assert.match(markup, /即将上线/);
+  assert.doesNotMatch(markup, /\bhref\s*=/i);
+});
+
+test('a live project renders a normalized safe and accessible link', () => {
+  const markup = createProjectCardMarkup({
+    name: '天空实验室',
+    description: '一个网页实验。',
+    tags: ['Web'],
+    url: ' HTTPS://Example.COM:443/demo ',
+  });
+
+  assert.match(markup, /href="https:\/\/example\.com\/demo"/);
+  assert.match(markup, /target="_blank"/);
+  assert.match(markup, /rel="noopener noreferrer"/);
+  assert.match(markup, /aria-label="访问 天空实验室"/);
+});
+
+test('project markup escapes hostile text and uses only a validated normalized URL', () => {
+  const markup = createProjectCardMarkup({
+    name: '<script>alert(1)</script>',
+    description: 'closing </a> and <b>markup</b>',
+    tags: ['tag </a>', '<script>bad()</script>'],
+    url: 'https://example.com/search?q="quoted"&next=<script>',
+  });
+
+  assert.doesNotMatch(markup, /<script\b/i);
+  assert.doesNotMatch(markup, /<b>markup<\/b>/i);
+  assert.doesNotMatch(markup, /tag <\/a>/i);
+  assert.match(markup, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
+  assert.match(markup, /tag &lt;\/a&gt;/);
+  assert.match(
+    markup,
+    /href="https:\/\/example\.com\/search\?q=%22quoted%22&amp;next=%3Cscript%3E"/,
+  );
+  assert.equal((markup.match(/\bhref=/g) ?? []).length, 1);
+});
+
+test('an unsafe hostile URL never becomes an attribute', () => {
+  const markup = createProjectCardMarkup({
+    name: '危险链接',
+    description: '不应可点击。',
+    tags: ['安全'],
+    url: 'javascript:alert("owned")',
+  });
+
+  assert.match(markup, /即将上线/);
+  assert.doesNotMatch(markup, /\bhref\s*=/i);
+  assert.doesNotMatch(markup, /javascript:/i);
 });
