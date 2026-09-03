@@ -196,3 +196,22 @@ test('interaction upgrade wires cursor ring, magnetic buttons and scene spin', a
   assert.match(css, /animation:\s*s[c]?/);
   assert.match(html, /class=["'][^"']*\bhero-scene\b[^"']*["']/i);
 });
+
+test('projects render as a carousel with slides, count and prev/next controls', async () => {
+  const html = await readHomepage();
+  const css = await readFile(stylesheetPath, 'utf8');
+  const main = await readFile(mainPath, 'utf8');
+
+  assert.match(html, /class=["'][^"']*\bcarousel-track\b[^"']*["']/i);
+  assert.match(html, /class=["'][^"']*\bcarousel-prev\b[^"']*["']/i);
+  assert.match(html, /class=["'][^"']*\bcarousel-next\b[^"']*["']/i);
+  assert.match(html, /class=["'][^"']*\bcarousel-total\b[^"']*["']/i);
+
+  const slides = html.match(/class=["'][^"']*\bproject-slide\b[^"']*["']/g) ?? [];
+  assert.ok(slides.length >= 1, 'expected at least one project slide');
+
+  // 浏览器 mock 封面与轨道平移机制
+  assert.match(css, /\.browser-mock\b/);
+  assert.match(css, /\.carousel-track\s*\{[^}]*transition:\s*transform/is);
+  assert.match(main, /initializeCarousel\(document\)/);
+});

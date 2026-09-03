@@ -606,3 +606,224 @@ footer {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
+
+/* ==========================================================================
+   Project carousel — one large showcase at a time, info left / mock right.
+   ========================================================================== */
+
+.carousel {
+  margin-top: 2.5rem;
+}
+
+.carousel-track {
+  display: flex;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  transition: transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.project-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border: 1px solid var(--works-line);
+  border-radius: 1.75rem;
+  background: rgb(255 255 255 / 6%);
+}
+
+.project-info {
+  min-width: 0;
+}
+
+.project-index {
+  margin: 0 0 1rem;
+  color: #7fb7f5;
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.project-title {
+  margin: 0 0 1.1rem;
+  color: var(--works-ink);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.project-desc {
+  max-width: 42rem;
+  margin: 0 0 1.5rem;
+  color: var(--works-muted);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0 0 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.project-tags li {
+  display: inline-flex;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--works-line);
+  border-radius: 999px;
+  color: var(--works-muted);
+  font-size: 0.78rem;
+}
+
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.project-actions .button--primary {
+  background: #2f7de6;
+  color: #06254a;
+}
+
+.project-action.is-soon {
+  display: inline-flex;
+  padding: 0.9rem 1.4rem;
+  border: 1px solid var(--works-line);
+  border-radius: 999px;
+  color: var(--works-muted);
+  font-weight: 700;
+}
+
+/* Browser mock covering the right side */
+.project-shot {
+  min-width: 0;
+}
+
+.browser-mock {
+  overflow: hidden;
+  border-radius: 1.1rem;
+  background: #eef5ff;
+  box-shadow: 0 2rem 4rem rgb(4 16 34 / 45%);
+}
+
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: #dfe9f6;
+}
+
+.dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+}
+
+.dot-r { background: #ff5f57; }
+.dot-y { background: #febc2e; }
+.dot-g { background: #28c840; }
+
+.browser-url {
+  margin-left: 0.6rem;
+  color: #5a7fae;
+  font-size: 0.74rem;
+  font-style: normal;
+  letter-spacing: 0.02em;
+}
+
+.shot-page {
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background:
+    radial-gradient(circle at 80% 20%, rgb(255 255 255 / 35%), transparent 55%),
+    linear-gradient(135deg, color-mix(in srgb, var(--shot-accent) 88%, #ffffff), color-mix(in srgb, var(--shot-accent) 55%, #06213f));
+  color: #f5faff;
+}
+
+.shot-kicker {
+  margin: 0 0 1.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  opacity: 0.85;
+}
+
+.shot-title {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.shot-sub {
+  margin: 0 0 2.5rem;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.shot-cta {
+  display: inline-flex;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 20%);
+  font-size: 0.85rem;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  color: var(--works-muted);
+}
+
+.carousel-prev,
+.carousel-next {
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--works-line);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 6%);
+  color: var(--works-ink);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+  background: rgb(255 255 255 / 14%);
+  transform: translateY(-2px);
+}
+
+.carousel-count {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.carousel-current {
+  color: var(--works-ink);
+  font-weight: 800;
+}
+
+@media (max-width: 47.99rem) {
+  .project-slide {
+    grid-template-columns: 1fr;
+  }
+
+  .project-shot {
+    order: -1;
+  }
+}
