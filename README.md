@@ -87,5 +87,6 @@ example.com {
 - **产品感卡片**：每个项目卡片顶部带有"浏览器窗口"细节（纯 CSS 伪元素，不影响 DOM，查看源码仍可读）。
 - **顶部导航与状态点**：固定顶栏（WORK / ABOUT / CONTACT）+ `Building in public` 状态点。
 - **按钮体系**：胶囊实心主按钮与描边次级按钮，配合轻量上浮微交互。
+- **动效细节**：Hero 装饰球体缓慢自转、精指针设备上的自定义光标跟随环、按钮磁吸吸附微效（均尊重 `prefers-reduced-motion`，触屏设备自动降级）。
 
 以上均为纯 CSS/结构与少量 JavaScript 实现，无第三方依赖；遵循 `prefers-reduced-motion` 与触屏（`pointer: coarse`）降级。

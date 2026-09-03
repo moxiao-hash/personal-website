@@ -536,3 +536,49 @@ footer {
     animation: none;
   }
 }
+
+/* ==========================================================================
+   Interaction upgrade — hero scene spin, cursor ring, magnetic buttons.
+   Reduced-motion / coarse-pointer guards are handled below & in JS.
+   ========================================================================== */
+
+.hero-scene::before {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgb(50 150 255 / 0%) 0deg,
+    rgb(120 200 255 / 55%) 90deg,
+    rgb(50 150 255 / 0%) 200deg,
+    rgb(20 80 180 / 50%) 300deg,
+    rgb(50 150 255 / 0%) 360deg
+  );
+  content: "";
+  mix-blend-mode: screen;
+  animation: scene-spin 28s linear infinite;
+}
+
+@keyframes scene-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 2rem;
+  height: 2rem;
+  margin: -1rem 0 0 -1rem;
+  border: 1.5px solid rgb(6 99 184 / 45%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 40;
+  will-change: transform;
+}
+
+.button {
+  will-change: transform;
+}

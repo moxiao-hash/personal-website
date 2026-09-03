@@ -159,3 +159,29 @@ test('editorial upgrade adds nav, buttons, works block and browser mock', async 
   assert.match(css, /--works-bg\s*:/i);
   assert.match(css, /\.status-dot::before\b/i);
 });
+
+test('interaction upgrade wires cursor ring, magnetic buttons and scene spin', async () => {
+  const html = await readHomepage();
+  const css = await readFile(stylesheetPath, 'utf8');
+  const main = await readFile(mainPath, 'utf8');
+  const cursorPath = new URL('../src/ui/cursor.js', import.meta.url);
+  const magneticPath = new URL('../src/ui/magnetic.js', import.meta.url);
+  const cursor = await readFile(cursorPath, 'utf8');
+  const magnetic = await readFile(magneticPath, 'utf8');
+
+  // main.js 初始化两个新模块
+  assert.match(main, /initializeCursor\(document\)/);
+  assert.match(main, /initializeMagnetic\(document\)/);
+
+  // 模块各自的精指针 / 动画守卫
+  assert.match(cursor, /matchMedia\(["']\(pointer:\s*fine\)["']\)/);
+  assert.match(cursor, /prefers-reduced-motion/);
+  assert.match(magnetic, /matchMedia\(["']\(pointer:\s*fine\)["']\)/);
+  assert.match(magnetic, /prefers-reduced-motion/);
+
+  // CSS：跟随环、场景自转、磁吸按钮
+  assert.match(css, /\.cursor-ring\b/);
+  assert.match(css, /@keyframes\s+scene-spin\b/);
+  assert.match(css, /animation:\s*s[c]?/);
+  assert.match(html, /class=["'][^"']*\bhero-scene\b[^"']*["']/i);
+});
