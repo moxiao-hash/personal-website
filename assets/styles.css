@@ -353,17 +353,19 @@ footer {
 }
 
 .hero-tagline {
-  max-width: 24rem;
-  margin-bottom: 1.25rem;
+  max-width: 16ch;
+  margin-bottom: 1.5rem;
   color: var(--ink);
-  font-size: clamp(1.35rem, 4vw, 2rem);
-  font-weight: 750;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
 }
 
 .hero-tagline .accent {
   color: var(--accent-bright);
+  white-space: nowrap;
 }
 
 .hero-actions {

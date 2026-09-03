@@ -49,6 +49,10 @@ test('homepage shows the approved identity, introduction, and goal statement', a
   const html = await readHomepage();
 
   assert.match(html, />\s*moxiao6657\s*</i);
+  assert.match(
+    html,
+    /<h1\b[^>]*\bclass=["']hero-tagline["'][^>]*>[\s\S]*把任何有趣的想法[\s\S]*落地[\s\S]*<\/h1>/i,
+  );
   assert.match(html, />\s*你好，我是姬天宇，你也可以叫我末晓。河南大学2024级网络工程在读。\s*</);
   assert.match(html, /<section\b[^>]*\bid=["']about["'][^>]*>[\s\S]*学生[\s\S]*Vibe Coding[\s\S]*<\/section>/i);
 
