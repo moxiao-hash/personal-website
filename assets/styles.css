@@ -594,3 +594,13 @@ footer {
   letter-spacing: -0.015em;
   text-wrap: balance;
 }
+
+/* Section subtitle — small label that introduces a card row */
+.section-subtitle {
+  margin: 2.25rem 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}

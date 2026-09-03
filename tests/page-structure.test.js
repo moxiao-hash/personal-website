@@ -52,12 +52,16 @@ test('homepage shows the approved identity, introduction, and goal statement', a
   assert.match(html, />\s*你好，我是姬天宇，你也可以叫我末晓。河南大学2024级网络工程在读。\s*</);
   assert.match(html, /<section\b[^>]*\bid=["']about["'][^>]*>[\s\S]*学生[\s\S]*Vibe Coding[\s\S]*<\/section>/i);
 
-  // 学习区已改为"我要做的事"目标陈述
+  // 学习区保留"我要做的事"目标陈述 + 正在学习的方向卡片
   assert.match(
     html,
     /<section\b[^>]*\bid=["']learning["'][^>]*>[\s\S]*我的目标[\s\S]*有实际意义的产品[\s\S]*<\/section>/i,
   );
   assert.match(html, /class=["'][^"']*\bgoal-statement\b[^"']*["']/i);
+
+  for (const topic of ['Vibe Coding', '网页开发', 'AI 工具']) {
+    assert.ok(html.includes(topic), `expected learning topic: ${topic}`);
+  }
 });
 
 test('homepage exposes confirmed contact links and the module entry point', async () => {
