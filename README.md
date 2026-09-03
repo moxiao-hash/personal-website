@@ -37,11 +37,11 @@ npm test
 - `url`：作品地址；只有有效的 HTTP(S) URL 才会显示为可访问链接。
 - 作品还没上线时，将 `url` 留空为 `''`，卡片会安全地显示“即将上线”，不会产生无效链接。
 
-修改后运行 `npm test`，确认数据结构和页面契约仍然正确。
+修改后先运行 `npm run render`，把最新的项目卡片预渲染写入 `index.html`，再运行 `npm test`，确认数据结构和页面契约仍然正确。这样即使不执行浏览器里的 JavaScript，直接"查看源代码"也能看到项目卡片。
 
 ## 免费静态托管
 
-GitHub Pages、Cloudflare Pages 或 Vercel 都可以托管本项目。项目没有构建步骤：将仓库根目录作为发布目录，直接发布 `index.html`、`assets/` 和 `src/` 即可。
+GitHub Pages、Cloudflare Pages 或 Vercel 都可以托管本项目。项目本身是纯静态文件，运行时无需构建：只要把 `index.html`、`assets/` 和 `src/` 作为发布目录即可。为了便于查看 `index.html` 时直接看到项目卡片，编辑 `src/data/site-data.js` 后请在本地执行一次 `npm run render`（预渲染脚本会把最新卡片静态写入 `index.html`），再提交。
 
 绑定个人域名时，在域名服务商处按托管平台提示添加 DNS 记录，并在平台中填写对应域名、开启 HTTPS。
 

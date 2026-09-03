@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 
 import { profile, projects } from '../src/data/site-data.js';
 import {
@@ -121,4 +122,23 @@ test('an unsafe hostile URL never becomes an attribute', () => {
   assert.match(markup, /即将上线/);
   assert.doesNotMatch(markup, /\bhref\s*=/i);
   assert.doesNotMatch(markup, /javascript:/i);
+});
+
+test('index.html statically contains the rendered project cards', async () => {
+  const indexPath = new URL('../index.html', import.meta.url);
+  const html = await readFile(indexPath, 'utf8');
+
+  // 每个项目都应作为静态卡片出现在 HTML 中，查看源代码即可见。
+  for (const project of projects) {
+    assert.ok(html.includes(project.name), `expected static card for ${project.name}`);
+    assert.ok(html.includes(project.description), `expected static text for ${project.name}`);
+  }
+
+  // 公开仓库有可点击链接，私有仓库显示"即将上线"。
+  const publicCount = (html.match(/访问作品/g) ?? []).length;
+  const comingSoonCount = (html.match(/即将上线/g) ?? []).length;
+  const publicRepos = projects.filter((p) => getProjectState(p.url) === 'live').length;
+
+  assert.equal(publicCount, publicRepos);
+  assert.equal(comingSoonCount, projects.length - publicRepos);
 });
