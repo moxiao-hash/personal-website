@@ -16,8 +16,8 @@ test('profile exposes the personal site identity and contact links', () => {
   assert.equal(profile.emailLabel, '发送邮件');
 });
 
-test('projects starts with exactly two complete placeholders', () => {
-  assert.equal(projects.length, 2);
+test('projects lists the account repositories with complete metadata', () => {
+  assert.ok(projects.length >= 4);
 
   for (const project of projects) {
     assert.equal(typeof project.name, 'string');
@@ -27,8 +27,23 @@ test('projects starts with exactly two complete placeholders', () => {
     assert.ok(Array.isArray(project.tags));
     assert.ok(project.tags.length > 0);
     assert.ok(project.tags.every((tag) => typeof tag === 'string' && tag.length > 0));
-    assert.equal(project.url, '');
+    assert.equal(typeof project.url, 'string');
   }
+});
+
+test('public repositories expose live links while the private one stays coming-soon', () => {
+  const publicRepos = ['project', 'clawd-on-desk', 'FItKeep', 'mineclearance'];
+  for (const repo of publicRepos) {
+    const project = projects.find(
+      (p) => p.url === `https://github.com/moxiao-hash/${repo}`,
+    );
+    assert.ok(project, `${repo} should be listed`);
+    assert.equal(getProjectState(project.url), 'live');
+  }
+
+  const privateProject = projects.find((p) => p.name === 'Soper Topography');
+  assert.ok(privateProject);
+  assert.equal(getProjectState(privateProject.url), 'coming-soon');
 });
 
 test('a valid HTTPS project URL is live', () => {
