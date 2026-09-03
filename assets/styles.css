@@ -615,10 +615,13 @@ footer {
   margin-top: 2.5rem;
 }
 
-.carousel-track {
-  display: flex;
+.carousel-viewport {
   overflow: hidden;
   border-radius: 1.75rem;
+}
+
+.carousel-track {
+  display: flex;
   transition: transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 

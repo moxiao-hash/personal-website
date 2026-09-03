@@ -215,3 +215,15 @@ test('projects render as a carousel with slides, count and prev/next controls', 
   assert.match(css, /\.carousel-track\s*\{[^}]*transition:\s*transform/is);
   assert.match(main, /initializeCarousel\(document\)/);
 });
+
+test('carousel clips moving slides through a stationary viewport', async () => {
+  const html = await readHomepage();
+  const css = await readFile(stylesheetPath, 'utf8');
+
+  assert.match(
+    html,
+    /class=["'][^"']*\bcarousel-viewport\b[^"']*["'][^>]*>\s*<div\b[^>]*\bid=["']project-list["']/i,
+  );
+  assert.match(css, /\.carousel-viewport\s*\{[^}]*overflow:\s*hidden/is);
+  assert.doesNotMatch(css, /\.carousel-track\s*\{[^}]*overflow:\s*hidden/is);
+});
