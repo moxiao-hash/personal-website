@@ -23,6 +23,7 @@ function initializeCarousel(root) {
 
   function show(nextIndex) {
     index = (nextIndex + slides.length) % slides.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
 
     slides.forEach((slide, slideIndex) => {
       const active = slideIndex === index;
