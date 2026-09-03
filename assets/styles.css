@@ -6,6 +6,11 @@
   --line: rgb(14 116 214 / 16%);
   --pointer-x: 50vw;
   --pointer-y: 30vh;
+  --accent-bright: #0a8bff;
+  --works-bg: #0b2b52;
+  --works-ink: #eef6ff;
+  --works-muted: #b7d4ee;
+  --works-line: rgb(171 210 255 / 24%);
   color: var(--ink);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-synthesis: none;
@@ -174,8 +179,7 @@ a {
   text-underline-offset: 0.22em;
 }
 
-.project-grid article > a,
-.contact-links a {
+.project-grid article > a {
   display: inline-flex;
   padding: 0.72rem 1rem;
   border-radius: 999px;
@@ -261,5 +265,274 @@ footer {
   .reveal-enabled .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* ==========================================================================
+   Editorial upgrade — blue take on the reference site's layout & craft.
+   Added after the core tokens so these rules win on equal specificity.
+   ========================================================================== */
+
+/* Fixed top navigation with a status dot */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--line);
+  background: rgb(234 245 255 / 45%);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.1rem;
+  margin-inline: auto;
+}
+
+.nav-links a {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.status-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.status-dot::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgb(34 197 94 / 55%);
+  content: "";
+  animation: status-pulse 2.2s ease-out infinite;
+}
+
+@keyframes status-pulse {
+  0% { box-shadow: 0 0 0 0 rgb(34 197 94 / 55%); }
+  70% { box-shadow: 0 0 0 0.55rem rgb(34 197 94 / 0%); }
+  100% { box-shadow: 0 0 0 0 rgb(34 197 94 / 0%); }
+}
+
+/* Hero — asymmetric two-column (copy + scene), like the reference */
+.hero {
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.hero-copy {
+  max-width: 42rem;
+}
+
+.hero-tagline {
+  max-width: 24rem;
+  margin-bottom: 1.25rem;
+  color: var(--ink);
+  font-size: clamp(1.35rem, 4vw, 2rem);
+  font-weight: 750;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.hero-tagline .accent {
+  color: var(--accent-bright);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}
+
+.hero-scene {
+  position: relative;
+  width: min(100%, 30rem);
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 30%, rgb(158 204 255 / 90%) 0%, transparent 40%),
+    radial-gradient(circle at 72% 74%, rgb(47 141 230 / 95%) 0%, transparent 52%),
+    conic-gradient(from 215deg, #0a3f86, #1f6fd0, #32a0ff, #0a3f86);
+  box-shadow:
+    inset 0 0 6rem rgb(255 255 255 / 22%),
+    0 2rem 5rem rgb(9 46 96 / 35%);
+}
+
+.hero-scene::after {
+  position: absolute;
+  inset: 9%;
+  border: 1px solid rgb(255 255 255 / 35%);
+  border-radius: 50%;
+  content: "";
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.button--primary {
+  background: var(--ink);
+  color: white;
+}
+
+.button--primary:hover {
+  background: #0a3f86;
+  transform: translateY(-2px);
+  box-shadow: 0 1rem 2rem rgb(8 60 130 / 25%);
+}
+
+.button--ghost {
+  border-color: var(--line);
+  background: rgb(255 255 255 / 40%);
+  color: var(--ink);
+}
+
+.button--ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Numbered eyebrow sections */
+.eyebrow--num {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.eyebrow--num::before {
+  width: 1.6rem;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+
+/* Works — darker blue block that lifts the projects section out of the page */
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.works {
+  background: var(--works-bg);
+  border-color: var(--works-line);
+  color: var(--works-ink);
+  box-shadow: 0 2rem 4.5rem rgb(4 20 46 / 35%);
+}
+
+.works .eyebrow {
+  color: #6fb6ff;
+}
+
+.works > p:not(.eyebrow) {
+  color: var(--works-muted);
+}
+
+.works h2 {
+  color: var(--works-ink);
+}
+
+.works-count {
+  margin: 0;
+  color: #6fb6ff;
+  font-size: clamp(2.4rem, 7vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  text-align: right;
+}
+
+.works-count::after {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--works-muted);
+  content: "REPOSITORIES";
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+/* Browser-window strip on each project card (pure CSS, no DOM change) */
+.project-grid article::before {
+  display: block;
+  height: 1.7rem;
+  margin: -1.5rem -1.5rem 1.15rem;
+  border-bottom: 1px solid var(--works-line);
+  border-radius: 1.25rem 1.25rem 0 0;
+  background:
+    radial-gradient(circle 3.5px at 1.15rem 50%, #ff5f57 98%, transparent),
+    radial-gradient(circle 3.5px at 2.2rem 50%, #febc2e 98%, transparent),
+    radial-gradient(circle 3.5px at 3.25rem 50%, #28c840 98%, transparent),
+    rgb(255 255 255 / 8%);
+  content: "";
+}
+
+@media (min-width: 48rem) {
+  .nav {
+    width: min(100% - 5rem, 70rem);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-scene {
+    width: min(82%, 20rem);
+  }
+
+  .works-count {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-dot::before {
+    animation: none;
   }
 }

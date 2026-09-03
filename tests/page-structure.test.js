@@ -129,3 +129,33 @@ test('README explains content updates and portable deployment', async () => {
   assert.match(readme, /HTTPS/);
   assert.match(readme, /子域名/);
 });
+
+test('editorial upgrade adds nav, buttons, works block and browser mock', async () => {
+  const html = await readHomepage();
+  const css = await readFile(stylesheetPath, 'utf8');
+
+  // 顶栏导航与状态点
+  assert.match(html, /<nav\b[^>]*\bclass=["']nav["']/i);
+  assert.match(html, /class=["'][^"']*\bstatus-dot\b[^"']*["']/);
+  assert.match(html, />\s*Building in public\s*</i);
+
+  // Hero 强调词与右侧场景
+  assert.match(html, /class=["'][^"']*\bhero-scene\b[^"']*["']/i);
+  assert.match(html, /<span\b[^>]*\bclass=["']accent["']>[^<]*<\/span>/i);
+
+  // 按钮体系（实心主按钮 + 描边次级按钮）
+  assert.match(html, /class=["'][^"']*\bbutton button--primary\b[^"']*["']/i);
+  assert.match(html, /class=["'][^"']*\bbutton button--ghost\b[^"']*["']/i);
+
+  // 作品区深蓝块与总数大编号
+  assert.match(
+    html,
+    /<section\b[^>]*\bid=["']projects["'][^>]*\bclass=["'][^"']*\bworks\b[^"']*["']/i,
+  );
+  assert.match(html, /class=["'][^"']*\bworks-count\b[^"']*["']/);
+
+  // CSS 侧：浏览器 mock 卡片头、深蓝块 token、状态点脉冲
+  assert.match(css, /\.project-grid\s+article::before\b/i);
+  assert.match(css, /--works-bg\s*:/i);
+  assert.match(css, /\.status-dot::before\b/i);
+});

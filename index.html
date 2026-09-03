@@ -15,22 +15,39 @@
     <link rel="stylesheet" href="./assets/styles.css">
   </head>
   <body>
+    <nav class="nav">
+      <a class="brand" href="#top">moxiao6657</a>
+      <div class="nav-links">
+        <a href="#projects">WORK</a>
+        <a href="#about">ABOUT</a>
+        <a href="#connect">CONTACT</a>
+      </div>
+      <span class="status-dot">Building in public</span>
+    </nav>
+
     <main>
       <header class="hero reveal">
-        <p class="eyebrow">你好，我是</p>
-        <h1 data-profile-handle>moxiao6657</h1>
-        <p class="hero-intro" data-profile-identity>学生 · 正在学习 Vibe Coding 的人</p>
-        <a class="scroll-cue" href="#about">继续了解我 <span aria-hidden="true">↓</span></a>
+        <div class="hero-copy">
+          <p class="eyebrow">你好，我是</p>
+          <h1 data-profile-handle>moxiao6657</h1>
+          <p class="hero-tagline">把想法<span class="accent">做成</span>能用的东西。</p>
+          <p class="hero-intro" data-profile-identity>学生 · 正在学习 Vibe Coding 的人</p>
+          <div class="hero-actions">
+            <a class="button button--primary" href="#projects">看我的作品 <span aria-hidden="true">↗</span></a>
+            <a class="button button--ghost" href="https://github.com/moxiao-hash">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="hero-scene" aria-hidden="true"></div>
       </header>
 
       <section id="about" class="reveal" aria-labelledby="about-title">
-        <p class="eyebrow">About</p>
+        <p class="eyebrow eyebrow--num">01 / about</p>
         <h2 id="about-title">现在的我</h2>
         <p>我是一名学生，正在探索如何用 Vibe Coding 把脑海里的想法变成真实的网页与小作品。</p>
       </section>
 
       <section id="learning" class="reveal" aria-labelledby="learning-title">
-        <p class="eyebrow">Learning now</p>
+        <p class="eyebrow eyebrow--num">02 / learning</p>
         <h2 id="learning-title">正在学习</h2>
         <div class="learning-grid">
           <article class="card">
@@ -48,10 +65,15 @@
         </div>
       </section>
 
-      <section id="projects" class="reveal" aria-labelledby="projects-title">
-        <p class="eyebrow">Projects</p>
-        <h2 id="projects-title">我的作品</h2>
-        <p>这里将收录我在学习过程中完成的网页与小作品。</p>
+      <section id="projects" class="works reveal" aria-labelledby="projects-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow eyebrow--num">03 / projects</p>
+            <h2 id="projects-title">我的作品</h2>
+          </div>
+          <p class="works-count">05</p>
+        </div>
+        <p>这里收录我在学习过程中完成的网页与小作品。</p>
         <div id="project-list" class="project-grid" aria-live="polite">
 
     <article>
@@ -97,18 +119,21 @@
       </section>
 
       <section id="connect" class="connect reveal" aria-labelledby="connect-title">
-        <p class="eyebrow">Connect</p>
+        <p class="eyebrow eyebrow--num">04 / connect</p>
         <h2 id="connect-title">找到我</h2>
         <p>如果你想交流学习心得或聊聊有趣的想法，欢迎联系我。</p>
         <ul class="contact-links">
-          <li><a data-profile-email href="mailto:166973742@qq.com">发送邮件</a></li>
+          <li>
+            <a class="button button--primary" data-profile-email href="mailto:166973742@qq.com">发送邮件</a>
+          </li>
           <li>
             <a
+              class="button button--ghost"
               data-profile-github
               href="https://github.com/moxiao-hash"
               target="_blank"
               rel="noopener noreferrer"
-            >GitHub</a>
+            >GitHub ↗</a>
           </li>
         </ul>
       </section>
