@@ -23,7 +23,9 @@ function initializeCarousel(root) {
 
   function show(nextIndex) {
     index = (nextIndex + slides.length) % slides.length;
-    track.style.transform = `translateX(-${index * 100}%)`;
+    // 用卡片实际宽度（像素）定位，避免 translateX(-100%) 在不同环境下的歧义。
+    const step = slides[0].getBoundingClientRect().width || track.offsetWidth;
+    track.style.transform = `translateX(${-index * step}px)`;
 
     slides.forEach((slide, slideIndex) => {
       const active = slideIndex === index;
