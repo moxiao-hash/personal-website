@@ -10,7 +10,7 @@ import {
 
 test('profile exposes the personal site identity and contact links', () => {
   assert.equal(profile.handle, 'moxiao6657');
-  assert.equal(profile.identity, '学生 · 正在学习 Vibe Coding 的人');
+  assert.equal(profile.identity, '你好，我是姬天宇，你也可以叫我末晓。河南大学2024级网络工程在读。');
   assert.equal(profile.github, 'https://github.com/moxiao-hash');
   assert.equal(profile.githubLabel, 'GitHub');
   assert.equal(profile.email, '166973742@qq.com');

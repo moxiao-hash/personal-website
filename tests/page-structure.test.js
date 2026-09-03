@@ -45,16 +45,19 @@ test('homepage includes every approved content section', async () => {
   assert.match(projectsSection, /\bid=["']project-list["']/i);
 });
 
-test('homepage shows the approved identity, introduction, and learning topics', async () => {
+test('homepage shows the approved identity, introduction, and goal statement', async () => {
   const html = await readHomepage();
 
   assert.match(html, />\s*moxiao6657\s*</i);
-  assert.match(html, />\s*学生 · 正在学习 Vibe Coding 的人\s*</);
+  assert.match(html, />\s*你好，我是姬天宇，你也可以叫我末晓。河南大学2024级网络工程在读。\s*</);
   assert.match(html, /<section\b[^>]*\bid=["']about["'][^>]*>[\s\S]*学生[\s\S]*Vibe Coding[\s\S]*<\/section>/i);
 
-  for (const topic of ['Vibe Coding', '网页开发', 'AI 工具']) {
-    assert.ok(html.includes(topic), `expected learning topic: ${topic}`);
-  }
+  // 学习区已改为"我要做的事"目标陈述
+  assert.match(
+    html,
+    /<section\b[^>]*\bid=["']learning["'][^>]*>[\s\S]*我的目标[\s\S]*有实际意义的产品[\s\S]*<\/section>/i,
+  );
+  assert.match(html, /class=["'][^"']*\bgoal-statement\b[^"']*["']/i);
 });
 
 test('homepage exposes confirmed contact links and the module entry point', async () => {

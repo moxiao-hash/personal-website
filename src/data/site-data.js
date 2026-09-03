@@ -1,6 +1,6 @@
 export const profile = {
   handle: 'moxiao6657',
-  identity: '学生 · 正在学习 Vibe Coding 的人',
+  identity: '你好，我是姬天宇，你也可以叫我末晓。河南大学2024级网络工程在读。',
   github: 'https://github.com/moxiao-hash',
   githubLabel: 'GitHub',
   email: '166973742@qq.com',
